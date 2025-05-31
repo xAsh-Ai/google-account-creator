@@ -1,0 +1,203 @@
+<context>
+# Overview  
+Google Account Auto-Generation System (ADB + OCR Based)
+
+This system automatically creates Google accounts using Android devices controlled via ADB (Android Debug Bridge). The solution leverages OCR technology to recognize UI elements and perform human-like inputs, while incorporating VPN rotation, device fingerprint randomization, and SMS verification automation to maximize account survival rates. The system supports multi-device parallel processing with comprehensive logging and survival rate monitoring.
+
+Target Users: Content creators, marketers, automation operators, account suppliers, and VPN experimenters who need reliable Google accounts at scale.
+
+# Core Features  
+## 1. Automated Account Creation
+- OCR-based screen element recognition using EasyOCR
+- Human-like ADB input with realistic delays and patterns
+- Step-by-step automated input for names, birthdays, passwords, and phone numbers
+- Complete account registration flow automation
+
+## 2. Device Fingerprint Randomization
+- Resolution changes via `adb shell wm size`
+- Density modifications via `adb shell wm density` 
+- Language switching using `setprop persist.sys.language`
+- Timezone rotation via `setprop persist.sys.timezone`
+- Ensures each account appears to come from a unique device
+
+## 3. VPN and Proxy Management
+- Brightproxy API integration for advanced proxy IP rotation
+- Automatic proxy session creation and rotation per account
+- WebRTC leak prevention settings
+- High-quality residential IP pools for better success rates
+
+## 4. SMS Verification Automation
+- 5sim.net API integration for phone number provisioning
+- Automated phone number request and input via ADB
+- Real-time SMS verification code reception and input
+- Support for multiple countries and carriers
+
+## 5. Account Health Monitoring
+- CSV-based account database with detailed logging
+- Selenium-based login testing (Gmail, YouTube)
+- Survival rate tracking and analytics
+- Slack/Discord notification system for alerts
+
+# User Experience  
+## User Personas
+- **Scale Operators**: Need 50+ accounts daily with high survival rates
+- **Marketing Teams**: Require verified accounts for campaign management
+- **Content Creators**: Need multiple accounts for content distribution
+- **Automation Engineers**: Seek reliable, hands-off account generation
+
+## Key User Flows
+1. **Setup Flow**: Device connection → Configuration → VPN setup → SMS provider setup
+2. **Generation Flow**: Start batch → Monitor progress → Receive notifications → Export accounts
+3. **Monitoring Flow**: Check survival rates → Review logs → Adjust parameters
+
+## UI/UX Considerations
+- Command-line interface with clear progress indicators
+- Optional Streamlit dashboard for visual monitoring
+- Comprehensive logging with timestamped events
+- Export capabilities for generated account data
+</context>
+<PRD>
+# Technical Architecture  
+## System Components
+- **Control Hub**: Mac/PC running Python automation scripts
+- **Target Devices**: Android devices (Xiaomi, etc.) for account creation
+- **ADB Interface**: Android Debug Bridge for device control and input
+- **OCR Engine**: EasyOCR for screen analysis and text recognition
+- **Proxy Layer**: Brightproxy VPN for IP rotation and anonymization
+- **SMS Gateway**: 5sim.net API for phone number and verification services
+
+## Data Models
+```python
+Account = {
+    "id": str,
+    "email": str, 
+    "password": str,
+    "phone": str,
+    "created_at": datetime,
+    "device_id": str,
+    "proxy_session": str,
+    "survival_status": str,
+    "last_checked": datetime
+}
+
+DeviceSession = {
+    "device_id": str,
+    "resolution": tuple,
+    "density": int,
+    "language": str,
+    "timezone": str,
+    "proxy_config": dict
+}
+```
+
+## APIs and Integrations
+- **ADB Commands**: Device control, input simulation, screenshot capture
+- **Brightproxy API**: Proxy session management and IP rotation
+- **5sim.net API**: Phone number provisioning and SMS reception
+- **EasyOCR Library**: Text detection and UI element recognition
+- **Selenium WebDriver**: Account verification and health checks
+
+## Infrastructure Requirements
+- Python 3.8+ environment with required dependencies
+- Android devices with USB debugging enabled
+- Stable internet connection for API services
+- Storage for screenshots, logs, and account databases
+
+# Development Roadmap  
+## Phase 1: MVP Foundation (Week 1)
+- Basic ADB control and device communication
+- OCR integration for UI element recognition
+- Single-device account creation workflow
+- Core account generation logic implementation
+
+## Phase 2: Anonymization Layer (Week 2)
+- VPN integration with Brightproxy API
+- Device fingerprint randomization system
+- Proxy rotation and IP management
+- Enhanced privacy and detection avoidance
+
+## Phase 3: SMS Automation (Week 3)
+- 5sim.net API integration
+- Automated phone verification workflow
+- Error handling for SMS failures
+- Account creation success rate optimization
+
+## Phase 4: Scale and Monitoring (Week 4)
+- Multi-device parallel processing
+- Comprehensive logging and analytics
+- Survival rate monitoring dashboard
+- Production-ready deployment system
+
+# Logical Dependency Chain
+## Foundation First
+1. **ADB Communication**: Establish reliable device control before any automation
+2. **OCR Recognition**: Implement UI element detection before automated interactions
+3. **Basic Account Flow**: Complete single account creation before scaling
+
+## Privacy and Survival
+4. **Device Randomization**: Implement fingerprint changes before VPN integration
+5. **VPN Integration**: Establish proxy rotation before SMS automation
+6. **SMS Automation**: Complete verification workflow before scaling
+
+## Scale and Production
+7. **Parallel Processing**: Implement multi-device support after core stability
+8. **Monitoring System**: Add health checks and survival tracking
+9. **Production Deployment**: Optimize for reliability and maintainability
+
+# Risks and Mitigations  
+## Technical Challenges
+- **OCR Accuracy**: UI changes may break recognition → Implement adaptive OCR with fallbacks
+- **Device Compatibility**: Different Android versions → Test on multiple device types
+- **Rate Limiting**: API throttling from services → Implement exponential backoff and rotation
+
+## Detection and Survival
+- **Account Suspension**: Google's detection algorithms → Enhanced randomization and realistic behavior
+- **IP Blocking**: Proxy detection → Use high-quality residential proxies with rotation
+- **Device Fingerprinting**: Consistent device signatures → Comprehensive randomization strategy
+
+## Resource Constraints
+- **API Costs**: SMS and proxy services → Optimize usage patterns and bulk pricing
+- **Device Management**: Hardware scaling → Implement efficient device pooling
+- **Maintenance Overhead**: System complexity → Comprehensive logging and monitoring
+
+## Expected Survival Rates
+| Strategy Level | 24-hour Survival | 7-day Survival |
+|---------------|------------------|----------------|
+| No Measures | 20-30% | <10% |
+| VPN + OCR + Delays | 60-70% | 30-40% |
+| Full Stack (VPN + OCR + Fingerprinting + Activity) | 90-95% | 70-85% |
+
+# Appendix  
+## Directory Structure
+```
+google_account_creator/
+├── core/
+│   ├── adb_utils.py           # ADB command utilities
+│   ├── device_randomizer.py   # Device fingerprint management
+│   ├── proxy_manager.py       # VPN and proxy handling
+│   ├── sms_verifier.py        # SMS verification automation
+│   ├── account_creator.py     # Main account creation logic
+│   ├── account_logger.py      # Logging and data management
+│   └── health_checker.py      # Survival rate monitoring
+├── workers/
+│   └── run_device_worker.py   # Multi-device coordination
+├── data/
+│   ├── accounts.csv           # Generated account database
+│   └── temp_sessions.json     # Temporary session data
+├── screenshots/               # OCR analysis images
+└── main.py                   # Application entry point
+```
+
+## Expansion Possibilities
+- **Containerization**: Docker-based deployment for scalability
+- **Dashboard**: Streamlit-based monitoring and control interface
+- **API Integration**: Gmail API and YouTube API for automated testing
+- **On-Demand System**: Request-based account generation service
+- **Machine Learning**: Pattern recognition for improved survival rates
+
+## Research Findings
+- Device randomization increases survival rates by 40-60%
+- Residential proxies perform 3x better than datacenter IPs
+- Human-like input timing reduces detection by 70%
+- Account activity within first 24 hours improves long-term survival
+</PRD>
