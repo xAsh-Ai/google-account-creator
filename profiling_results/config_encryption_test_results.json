@@ -1,0 +1,84 @@
+{
+  "encryption_manager_basic": {
+    "data_integrity": true,
+    "encryption_detected": true,
+    "plain_not_detected": true,
+    "key_info_available": true,
+    "success": true
+  },
+  "encryption_manager_advanced": {
+    "different_ciphertexts": true,
+    "same_plaintexts": true,
+    "key_rotation_success": true,
+    "post_rotation_integrity": false,
+    "new_key_works": true,
+    "success": true
+  },
+  "config_manager_encryption": {
+    "retrieval_success": true,
+    "save_success": true,
+    "file_exists": true,
+    "values_not_in_plaintext": true,
+    "load_and_decrypt_success": false,
+    "encryption_enabled": false,
+    "integrity_valid": false,
+    "success": false
+  },
+  "encryption_error_handling": {
+    "wrong_password_handled": true,
+    "invalid_format_handled": true,
+    "empty_data_handled": true,
+    "long_data_handled": true,
+    "special_chars_handled": true,
+    "success": true
+  },
+  "config_export_import": {
+    "export_success": true,
+    "export_file_exists": true,
+    "import_success": true,
+    "import_verification": false,
+    "wrong_key_blocked": false,
+    "success": false
+  },
+  "performance_benchmarks": {
+    "results": {
+      "100_bytes": {
+        "encryption_time": 8.358400373253971e-05,
+        "decryption_time": 4.8499998229090124e-05,
+        "total_time": 0.00013208400196162984,
+        "data_integrity": true,
+        "throughput_mb_per_sec": 0.7220210640523222
+      },
+      "1000_bytes": {
+        "encryption_time": 4.145899583818391e-05,
+        "decryption_time": 4.6875000407453626e-05,
+        "total_time": 8.833399624563754e-05,
+        "data_integrity": true,
+        "throughput_mb_per_sec": 10.796231993787423
+      },
+      "10000_bytes": {
+        "encryption_time": 8.604199683759362e-05,
+        "decryption_time": 0.00012441600119927898,
+        "total_time": 0.0002104579980368726,
+        "data_integrity": true,
+        "throughput_mb_per_sec": 45.31423492107744
+      },
+      "100000_bytes": {
+        "encryption_time": 0.0007199159954325296,
+        "decryption_time": 0.0007338330033235252,
+        "total_time": 0.0014537489987560548,
+        "data_integrity": true,
+        "throughput_mb_per_sec": 65.60102997300709
+      }
+    },
+    "all_fast_enough": true,
+    "all_data_intact": true,
+    "success": true
+  },
+  "summary": {
+    "total_tests": 6,
+    "successful_tests": 4,
+    "success_rate": 66.66666666666666,
+    "overall_success": false
+  }
+}

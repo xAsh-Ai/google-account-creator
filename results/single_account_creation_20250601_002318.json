@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "creation_method": "ADB_ANDROID_EMULATOR",
+    "test_date": "2025-06-01T00:23:18.203397",
+    "total_accounts": 1,
+    "successful_accounts": 0,
+    "failed_accounts": 1,
+    "account_type": "SINGLE_ACCOUNT_TEST"
+  },
+  "statistics": {
+    "total_attempts": 1,
+    "successful_creations": 0,
+    "failed_attempts": 1,
+    "start_time": null,
+    "end_time": "2025-06-01T00:23:18.203396"
+  },
+  "account_details": {
+    "username": "userezggncb2",
+    "email_address": null,
+    "full_name": "윤 지민",
+    "birth_date": "1995-07-05",
+    "phone_number": null,
+    "verification_code": null,
+    "creation_timestamp": "2025-06-01T00:22:35.782175",
+    "duration_seconds": 42.313531160354614
+  },
+  "detailed_results": [
+    {
+      "success": false,
+      "account_data": {
+        "first_name": "윤",
+        "last_name": "지민",
+        "username": "userezggncb2",
+        "password": "H8rxdsl9UJ4B",
+        "birth_year": "1995",
+        "birth_month": "7",
+        "birth_day": "5",
+        "phone_number": null,
+        "recovery_email": "userezggncb2@tempmail.com"
+      },
+      "steps_completed": [
+        "디바이스 초기화",
+        "Google 앱 실행",
+        "가입 폼 입력"
+      ],
+      "errors": [
+        "전화번호 인증 실패"
+      ],
+      "duration": 42.313531160354614,
+      "phone_number": null,
+      "verification_code": null,
+      "email_address": null,
+      "creation_timestamp": "2025-06-01T00:22:35.782175"
+    }
+  ]
+}

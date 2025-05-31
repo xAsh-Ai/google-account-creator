@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "creation_method": "ADB_ANDROID_EMULATOR",
+    "test_date": "2025-05-31T23:48:16.291688",
+    "total_accounts": 1,
+    "successful_accounts": 0,
+    "failed_accounts": 1,
+    "account_type": "SINGLE_ACCOUNT_TEST"
+  },
+  "statistics": {
+    "total_attempts": 1,
+    "successful_creations": 0,
+    "failed_attempts": 1,
+    "start_time": null,
+    "end_time": "2025-05-31T23:48:16.291686"
+  },
+  "account_details": {
+    "username": "userdw4qbye5",
+    "email_address": "userdw4qbye5@gmail.com",
+    "full_name": "권 윤서",
+    "birth_date": "1994-09-02",
+    "phone_number": "01082869774",
+    "verification_code": "719204",
+    "creation_timestamp": "2025-05-31T23:46:45.374367",
+    "duration_seconds": 90.78142476081848
+  },
+  "detailed_results": [
+    {
+      "success": false,
+      "account_data": {
+        "first_name": "권",
+        "last_name": "윤서",
+        "username": "userdw4qbye5",
+        "password": "drj8mAcS7gxk",
+        "birth_year": "1994",
+        "birth_month": "9",
+        "birth_day": "2",
+        "phone_number": "01082869774",
+        "recovery_email": "userdw4qbye5@tempmail.com",
+        "creation_status": "completed",
+        "completion_time": "2025-05-31T23:48:04.991452"
+      },
+      "steps_completed": [
+        "디바이스 초기화",
+        "Google 앱 실행",
+        "가입 폼 입력",
+        "전화번호 인증",
+        "추가 정보 입력",
+        "계정 생성 완료",
+        "계정 검증 실패"
+      ],
+      "errors": [
+        "계정 검증 실패 - 로그인 불가능",
+        "계정 생성 중 오류: 'SimpleLogger' object has no attribute 'warning'"
+      ],
+      "duration": 90.78142476081848,
+      "phone_number": "01082869774",
+      "verification_code": "719204",
+      "email_address": "userdw4qbye5@gmail.com",
+      "creation_timestamp": "2025-05-31T23:46:45.374367",
+      "verified": false
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "creation_method": "ADB_ANDROID_EMULATOR",
+    "test_date": "2025-05-31T23:41:13.809229",
+    "total_accounts": 1,
+    "successful_accounts": 1,
+    "failed_accounts": 0,
+    "account_type": "SINGLE_ACCOUNT_TEST"
+  },
+  "statistics": {
+    "total_attempts": 1,
+    "successful_creations": 1,
+    "failed_attempts": 0,
+    "start_time": null,
+    "end_time": "2025-05-31T23:41:13.809228"
+  },
+  "account_details": {
+    "username": "useruwr7z1u1",
+    "email_address": "useruwr7z1u1@gmail.com",
+    "full_name": "임 하윤",
+    "birth_date": "1991-12-11",
+    "phone_number": "01022641866",
+    "verification_code": "863698",
+    "creation_timestamp": "2025-05-31T23:39:54.333612",
+    "duration_seconds": 79.41495108604431
+  },
+  "detailed_results": [
+    {
+      "success": true,
+      "account_data": {
+        "first_name": "임",
+        "last_name": "하윤",
+        "username": "useruwr7z1u1",
+        "password": "RBuhvvCjj%qq",
+        "birth_year": "1991",
+        "birth_month": "12",
+        "birth_day": "11",
+        "phone_number": "01022641866",
+        "recovery_email": "useruwr7z1u1@tempmail.com",
+        "creation_status": "completed",
+        "completion_time": "2025-05-31T23:41:13.748495"
+      },
+      "steps_completed": [
+        "디바이스 초기화",
+        "Google 앱 실행",
+        "가입 폼 입력",
+        "전화번호 인증",
+        "추가 정보 입력",
+        "계정 생성 완료"
+      ],
+      "errors": [],
+      "duration": 79.41495108604431,
+      "phone_number": "01022641866",
+      "verification_code": "863698",
+      "email_address": "useruwr7z1u1@gmail.com",
+      "creation_timestamp": "2025-05-31T23:39:54.333612"
+    }
+  ]
+}

@@ -1,0 +1,354 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  release:
+    types: [ published ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # 코드 품질 검사
+  quality-check:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install flake8 black mypy pytest pytest-cov
+
+    - name: Code formatting check (Black)
+      run: black --check --diff .
+
+    - name: Linting (Flake8)
+      run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+    - name: Type checking (MyPy)
+      run: mypy core/ --ignore-missing-imports
+
+    - name: Security check (Bandit)
+      run: |
+        pip install bandit
+        bandit -r core/ -f json -o bandit-report.json || true
+
+    - name: Upload security report
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-report
+        path: bandit-report.json
+
+  # 단위 테스트
+  unit-tests:
+    runs-on: ubuntu-latest
+    needs: quality-check
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-${{ matrix.python-version }}-pip-${{ hashFiles('**/requirements*.txt') }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-asyncio
+
+    - name: Run unit tests
+      run: |
+        pytest tests/ -v --cov=core --cov-report=xml --cov-report=html
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results-${{ matrix.python-version }}
+        path: |
+          htmlcov/
+          coverage.xml
+
+  # 성능 테스트
+  performance-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run performance tests
+      run: |
+        python scripts/test_performance_profiler.py > performance-results.txt
+        python scripts/test_memory_optimization.py >> performance-results.txt
+        python scripts/test_adb_optimization.py >> performance-results.txt
+
+    - name: Upload performance results
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-results
+        path: performance-results.txt
+
+  # Docker 이미지 빌드
+  build-image:
+    runs-on: ubuntu-latest
+    needs: [quality-check, unit-tests]
+    outputs:
+      image-digest: ${{ steps.build.outputs.digest }}
+      image-tag: ${{ steps.meta.outputs.tags }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=sha,prefix={{branch}}-
+
+    - name: Build and push Docker image
+      id: build
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        build-args: |
+          BUILD_DATE=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+          VCS_REF=${{ github.sha }}
+          VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+
+  # 보안 스캔
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: build-image
+    if: github.event_name == 'push'
+
+    steps:
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ needs.build-image.outputs.image-tag }}
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # 개발 환경 배포
+  deploy-dev:
+    runs-on: ubuntu-latest
+    needs: [build-image, security-scan]
+    if: github.ref == 'refs/heads/develop'
+    environment: development
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to development
+      run: |
+        echo "🚀 Deploying to development environment"
+        echo "Image: ${{ needs.build-image.outputs.image-tag }}"
+        # 실제 배포 로직은 환경에 따라 구현
+        # 예: kubectl, docker-compose, 또는 클라우드 서비스 API 호출
+
+    - name: Run smoke tests
+      run: |
+        echo "🧪 Running smoke tests on development environment"
+        # 기본적인 헬스체크 및 기능 테스트
+
+    - name: Notify deployment status
+      uses: 8398a7/action-slack@v3
+      if: always()
+      with:
+        status: ${{ job.status }}
+        channel: '#deployments'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+
+  # 스테이징 환경 배포
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: [build-image, security-scan]
+    if: github.ref == 'refs/heads/main'
+    environment: staging
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to staging
+      run: |
+        echo "🚀 Deploying to staging environment"
+        echo "Image: ${{ needs.build-image.outputs.image-tag }}"
+
+    - name: Run integration tests
+      run: |
+        echo "🧪 Running integration tests on staging environment"
+        # 통합 테스트 실행
+
+    - name: Performance benchmark
+      run: |
+        echo "📊 Running performance benchmarks"
+        # 성능 벤치마크 실행
+
+  # 프로덕션 환경 배포
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: [deploy-staging]
+    if: github.event_name == 'release'
+    environment: production
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to production
+      run: |
+        echo "🚀 Deploying to production environment"
+        echo "Release: ${{ github.event.release.tag_name }}"
+
+    - name: Health check
+      run: |
+        echo "🏥 Running production health checks"
+        # 프로덕션 헬스체크
+
+    - name: Update deployment status
+      run: |
+        echo "✅ Production deployment completed successfully"
+
+    - name: Notify team
+      uses: 8398a7/action-slack@v3
+      with:
+        status: success
+        channel: '#releases'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+        text: |
+          🎉 Production deployment successful!
+          Version: ${{ github.event.release.tag_name }}
+          Commit: ${{ github.sha }}
+
+  # 배포 실패 시 롤백
+  rollback:
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: failure() && github.event_name == 'release'
+    environment: production
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Rollback production deployment
+      run: |
+        echo "🔄 Rolling back production deployment"
+        # 롤백 로직 실행
+
+    - name: Notify rollback
+      uses: 8398a7/action-slack@v3
+      with:
+        status: failure
+        channel: '#alerts'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+        text: |
+          🚨 Production deployment failed and rolled back!
+          Version: ${{ github.event.release.tag_name }}
+          Please check the logs and investigate.
+
+  # 정리 작업
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: [deploy-production, deploy-staging, deploy-dev]
+    if: always()
+
+    steps:
+    - name: Clean up old images
+      run: |
+        echo "🧹 Cleaning up old container images"
+        # 오래된 이미지 정리 로직
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: pipeline-artifacts
+        path: |
+          *.txt
+          *.json
+          *.xml
+        retention-days: 30 

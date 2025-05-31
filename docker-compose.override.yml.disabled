@@ -1,0 +1,21 @@
+services:
+  google-account-creator:
+    # 개발 모드 설정
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+      - ENVIRONMENT=development
+    
+    # 코드 실시간 마운트
+    volumes:
+      - .:/app:cached
+      - /app/venv  # venv 제외
+      - /app/.git  # git 제외
+    
+    # 개발 포트
+    ports:
+      - "8080:8080"
+      - "5678:5678"  # 디버깅 포트
+    
+    # 개발 명령
+    command: ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "main.py"] 

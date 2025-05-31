@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "creation_method": "ADB_ANDROID_EMULATOR",
+    "test_date": "2025-05-31T23:36:00.971230",
+    "total_accounts": 1,
+    "successful_accounts": 1,
+    "failed_accounts": 0,
+    "account_type": "SINGLE_ACCOUNT_TEST"
+  },
+  "statistics": {
+    "total_attempts": 1,
+    "successful_creations": 1,
+    "failed_attempts": 0,
+    "start_time": null,
+    "end_time": 

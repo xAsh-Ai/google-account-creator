@@ -1,0 +1,29 @@
+{
+  "device": {
+    "default_device": "auto",
+    "screenshot_delay": 2,
+    "action_delay": 1
+  },
+  "apps": {
+    "chrome_package": "com.android.chrome",
+    "gmail_package": "com.google.android.gm",
+    "settings_package": "com.android.settings"
+  },
+  "ocr": {
+    "confidence_threshold": 0.7,
+    "max_retries": 3,
+    "detection_delay": 1
+  },
+  "account_generation": {
+    "min_age": 18,
+    "max_age": 35,
+    "domains": ["gmail.com"]
+  },
+  "sms_service": {
+    "provider": "getsmscode",
+    "timeout": 300,
+    "retry_delay": 10
+  },
+  "SMS_USERNAME": "0224ryan@gmail.com",
+  "SMS_TOKEN": "9f444d8d8607927b025e20e2248bf36c"
+} 

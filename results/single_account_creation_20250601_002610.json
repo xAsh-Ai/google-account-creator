@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "creation_method": "ADB_ANDROID_EMULATOR",
+    "test_date": "2025-06-01T00:26:10.119128",
+    "total_accounts": 1,
+    "successful_accounts": 0,
+    "failed_accounts": 1,
+    "account_type": "SINGLE_ACCOUNT_TEST"
+  },
+  "statistics": {
+    "total_attempts": 1,
+    "successful_creations": 0,
+    "failed_attempts": 1,
+    "start_time": null,
+    "end_time": "2025-06-01T00:26:10.119127"
+  },
+  "account_details": {
+    "username": "user3tsjpf3z",
+    "email_address": null,
+    "full_name": "오 하은",
+    "birth_date": "2003-02-18",
+    "phone_number": null,
+    "verification_code": null,
+    "creation_timestamp": "2025-06-01T00:25:27.254427",
+    "duration_seconds": 42.77678203582764
+  },
+  "detailed_results": [
+    {
+      "success": false,
+      "account_data": {
+        "first_name": "오",
+        "last_name": "하은",
+        "username": "user3tsjpf3z",
+        "password": "$9zmDSwGK8ei",
+        "birth_year": "2003",
+        "birth_month": "2",
+        "birth_day": "18",
+        "phone_number": null,
+        "recovery_email": "user3tsjpf3z@tempmail.com"
+      },
+      "steps_completed": [
+        "디바이스 초기화",
+        "Google 앱 실행",
+        "가입 폼 입력"
+      ],
+      "errors": [
+        "전화번호 인증 실패"
+      ],
+      "duration": 42.77678203582764,
+      "phone_number": null,
+      "verification_code": null,
+      "email_address": null,
+      "creation_timestamp": "2025-06-01T00:25:27.254427"
+    }
+  ]
+}

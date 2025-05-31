@@ -1,0 +1,138 @@
+# Docker Build Context Exclusions
+# 불필요한 파일들을 Docker 빌드에서 제외
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs (빌드 시점의 로그 제외)
+logs/*.log
+*.log
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Documentation build
+docs/_build/
+site/
+
+# Test artifacts
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+htmlcov/
+
+# Screenshots (빌드 시점 스크린샷 제외)
+screenshots/*.png
+screenshots/*.jpg
+screenshots/*.jpeg
+
+# Data files (빌드 시점 데이터 제외)
+data/*.db
+data/*.sqlite
+data/*.csv
+data/accounts/
+
+# Profiling results
+profiling_results/*.json
+profiling_results/*.txt
+
+# Docker
+docker-compose.override.yml
+docker-compose.prod.yml
+.docker/
+
+# Configuration (민감한 설정 제외)
+.env
+.env.local
+.env.production
+config/secrets/
+config/keys/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Node.js (dashboard용)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor configs
+.editorconfig
+
+# Task Master
+.taskmasterconfig
+tasks/
+
+# Cursor specific
+.cursor/
+.windsurfrules
+.roomodes
+
+# Roo specific  
+.roo/
+
+# Cache directories
+.cache/
+.mypy_cache/
+
+# Large model files (첫 실행 시 다운로드)
+*.model
+*.pth
+*.onnx
+
+# OS specific
+*.pid
+*.lock 

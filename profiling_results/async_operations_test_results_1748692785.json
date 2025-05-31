@@ -1,0 +1,438 @@
+{
+  "test_suite": "Async Operations",
+  "timestamp": 1748692782.323675,
+  "tests": {
+    "async_event_loop": {
+      "loops_created": 3,
+      "loops_started": 3,
+      "tasks_processed": 15,
+      "performance_metrics": {},
+      "success": true,
+      "completed_tasks": 15,
+      "success_rate": 1.0,
+      "loop_stats": {
+        "test_loop_0": {
+          "name": "test_loop_0",
+          "running": true,
+          "tasks_processed": 5,
+          "total_processing_time": 0.5052361488342285,
+          "average_processing_time": 0.1010472297668457,
+          "peak_concurrent_tasks": 6,
+          "current_tasks": 6
+        },
+        "test_loop_1": {
+          "name": "test_loop_1",
+          "running": true,
+          "tasks_processed": 5,
+          "total_processing_time": 0.5052015781402588,
+          "average_processing_time": 0.10104031562805176,
+          "peak_concurrent_tasks": 6,
+          "current_tasks": 6
+        },
+        "test_loop_2": {
+          "name": "test_loop_2",
+          "running": true,
+          "tasks_processed": 5,
+          "total_processing_time": 0.5026979446411133,
+          "average_processing_time": 0.10053958892822265,
+          "peak_concurrent_tasks": 6,
+          "current_tasks": 6
+        }
+      },
+      "duration": 0.13924312591552734
+    },
+    "worker_pool": {
+      "pool_created": true,
+      "workers_count": 8,
+      "tasks_submitted": 20,
+      "tasks_completed": 0,
+      "average_execution_time": 0.0,
+      "pool_stats": {
+        "pool_stats": {
+          "tasks_submitted": 20,
+          "tasks_completed": 0,
+          "tasks_failed": 0,
+          "total_execution_time": 0.0,
+          "queue_full_events": 0
+        },
+        "worker_stats": {
+          "worker_0": {
+            "is_busy": false,
+            "current_task": null,
+            "tasks_completed": 0,
+            "average_execution_time": 0.0,
+            "last_activity": 1748692782.5226638
+          },
+          "worker_1": {
+            "is_busy": false,
+            "current_task": null,
+            "tasks_completed": 0,
+            "average_execution_time": 0.0,
+            "last_activity": 1748692782.522666
+          },
+          "worker_2": {
+            "is_busy": false,
+            "current_task": null,
+            "tasks_completed": 0,
+            "average_execution_time": 0.0,
+            "last_activity": 1748692782.522667
+          },
+          "worker_3": {
+            "is_busy": false,
+            "current_task": null,
+            "tasks_completed": 0,
+            "average_execution_time": 0.0,
+            "last_activity": 1748692782.5226681
+          },
+          "worker_4": {
+            "is_busy": false,
+            "current_task": null,
+            "tasks_completed": 0,
+            "average_execution_time": 0.0,
+            "last_activity": 1748692782.522669
+          },
+          "worker_5": {
+            "is_busy": false,
+            "current_task": null,
+            "tasks_completed": 0,
+            "average_execution_time": 0.0,
+            "last_activity": 1748692782.52267
+          },
+          "worker_6": {
+            "is_busy": false,
+            "current_task": null,
+            "tasks_completed": 0,
+            "average_execution_time": 0.0,
+            "last_activity": 1748692782.5226712
+          },
+          "worker_7": {
+            "is_busy": false,
+            "current_task": null,
+            "tasks_completed": 0,
+            "average_execution_time": 0.0,
+            "last_activity": 1748692782.5226712
+          }
+        },
+        "loop_stats": {
+          "worker_loop_0": {
+            "name": "worker_loop_0",
+            "running": true,
+            "tasks_processed": 0,
+            "total_processing_time": 0.0,
+            "average_processing_time": 0.0,
+            "peak_concurrent_tasks": 0,
+            "current_tasks": 0
+          },
+          "worker_loop_1": {
+            "name": "worker_loop_1",
+            "running": true,
+            "tasks_processed": 0,
+            "total_processing_time": 0.0,
+            "average_processing_time": 0.0,
+            "peak_concurrent_tasks": 0,
+            "current_tasks": 0
+          }
+        },
+        "queue_size": 20,
+        "running": true
+      },
+      "success": true,
+      "completion_rate": 0.0,
+      "duration": 0.24035882949829102
+    },
+    "callback_mechanism": {
+      "callbacks_registered": 4,
+      "callbacks_triggered": 0,
+      "one_time_callbacks_triggered": 0,
+      "callback_errors": 0,
+      "success": true,
+      "callback_stats": {
+        "total_events": 1,
+        "total_triggers": 10,
+        "events": {
+          "test_event": 10
+        },
+        "registered_callbacks": {
+          "test_event": 3
+        },
+        "one_time_callbacks": {
+          "test_event": 0
+        }
+      },
+      "duration": 0.0029439926147460938
+    },
+    "task_scheduling": {
+      "scheduled_tasks": 4,
+      "recurring_tasks": 1,
+      "executed_tasks": 9,
+      "scheduling_accuracy": 0.055943628152211516,
+      "success": true,
+      "recurring_executions": 5,
+      "scheduled_tasks_info": 4,
+      "duration": 2.0071558952331543
+    },
+    "async_decorators": {
+      "sync_to_async_converted": false,
+      "background_task_executed": false,
+      "async_context_worked": false,
+      "decorator_performance": {},
+      "success": false,
+      "error": "'Task e037a18d-6b23-4a8a-bda0-f2360b72ea9d not found'",
+      "duration": 0.000965118408203125
+    },
+    "performance_improvement": {
+      "baseline_time": 0.12554478645324707,
+      "async_time": 0.007959127426147461,
+      "improvement_factor": 15.773687206062966,
+      "throughput_improvement": 0.0,
+      "success": true,
+      "sync_results_count": 10,
+      "async_results_count": 0,
+      "async_success_rate": 0.0,
+      "performance_gain_percentage": 1477.3687206062966,
+      "duration": 0.13374710083007812
+    },
+    "utility_functions": {
+      "convert_sync_to_async_worked": true,
+      "make_async_worked": true,
+      "gather_with_concurrency_worked": true,
+      "utility_performance": {
+        "gather_time": 0.08521008491516113,
+        "gather_results_count": 20
+      },
+      "gather_results_correct": true,
+      "success": true,
+      "all_utilities_working": true,
+      "duration": 0.1946721076965332
+    }
+  },
+  "success": false,
+  "total_tests": 7,
+  "successful_tests": 6,
+  "success_rate": 0.8571428571428571,
+  "total_duration": 2.7563700675964355,
+  "performance_report": {
+    "performance_metrics": {
+      "total_operations": 11,
+      "async_operations": 11,
+      "sync_operations": 0,
+      "conversion_success_rate": 0.0,
+      "average_response_time": 0.0,
+      "throughput_improvement": 0.0
+    },
+    "worker_pool_stats": {
+      "pool_stats": {
+        "tasks_submitted": 11,
+        "tasks_completed": 0,
+        "tasks_failed": 11,
+        "total_execution_time": 0.0,
+        "queue_full_events": 0
+      },
+      "worker_stats": {
+        "worker_0": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692784.8902102
+        },
+        "worker_1": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692784.890796
+        },
+        "worker_2": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692784.890485
+        },
+        "worker_3": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.3512478
+        },
+        "worker_4": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351249
+        },
+        "worker_5": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.35125
+        },
+        "worker_6": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351252
+        },
+        "worker_7": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351253
+        },
+        "worker_8": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351254
+        },
+        "worker_9": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351255
+        },
+        "worker_10": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351257
+        },
+        "worker_11": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351259
+        },
+        "worker_12": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351261
+        },
+        "worker_13": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.3512619
+        },
+        "worker_14": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351263
+        },
+        "worker_15": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351264
+        },
+        "worker_16": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351265
+        },
+        "worker_17": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351267
+        },
+        "worker_18": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351268
+        },
+        "worker_19": {
+          "is_busy": false,
+          "current_task": null,
+          "tasks_completed": 0,
+          "average_execution_time": 0.0,
+          "last_activity": 1748692782.351269
+        }
+      },
+      "loop_stats": {
+        "worker_loop_0": {
+          "name": "worker_loop_0",
+          "running": true,
+          "tasks_processed": 3,
+          "total_processing_time": 0.0009069442749023438,
+          "average_processing_time": 0.00030231475830078125,
+          "peak_concurrent_tasks": 1,
+          "current_tasks": 1
+        },
+        "worker_loop_1": {
+          "name": "worker_loop_1",
+          "running": true,
+          "tasks_processed": 2,
+          "total_processing_time": 0.0006711483001708984,
+          "average_processing_time": 0.0003355741500854492,
+          "peak_concurrent_tasks": 1,
+          "current_tasks": 1
+        },
+        "worker_loop_2": {
+          "name": "worker_loop_2",
+          "running": true,
+          "tasks_processed": 2,
+          "total_processing_time": 0.0010039806365966797,
+          "average_processing_time": 0.0005019903182983398,
+          "peak_concurrent_tasks": 1,
+          "current_tasks": 1
+        },
+        "worker_loop_3": {
+          "name": "worker_loop_3",
+          "running": true,
+          "tasks_processed": 2,
+          "total_processing_time": 0.0005080699920654297,
+          "average_processing_time": 0.00025403499603271484,
+          "peak_concurrent_tasks": 1,
+          "current_tasks": 1
+        },
+        "worker_loop_4": {
+          "name": "worker_loop_4",
+          "running": true,
+          "tasks_processed": 2,
+          "total_processing_time": 0.0007255077362060547,
+          "average_processing_time": 0.00036275386810302734,
+          "peak_concurrent_tasks": 1,
+          "current_tasks": 1
+        }
+      },
+      "queue_size": 0,
+      "running": true
+    },
+    "scheduled_tasks_count": 0,
+    "callback_stats": {
+      "total_events": 0,
+      "total_triggers": 0,
+      "events": {},
+      "registered_callbacks": {},
+      "one_time_callbacks": {}
+    },
+    "registered_conversions": 0,
+    "running": true
+  },
+  "baseline_performance": {
+    "sequential_execution_time": 0.006228923797607422,
+    "single_task_time": 0.0006228923797607422
+  }
+}
